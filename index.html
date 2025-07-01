@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vanta One – Luxury Smartwatch</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+    <style>
+      :root {
+        --primary: #0d6efd;
+        --dark-bg: #0d0d0d;
+        --light-bg: #f4f4f4;
+        --dark-card: #121212;
+        --light-card: #ffffff;
+        --dark-border: #2a2a2a;
+        --light-border: #e5e5e5;
+        --dark-text: #fff;
+        --light-text: #000;
+        --dark-muted-text: #aaa;
+        --light-muted-text: #555;
+        --dark-nav-link: #ccc;
+        --light-nav-link: #333;
+        --dark-navbar-bg: rgba(0, 0, 0, 0.65);
+        --light-navbar-bg: rgba(255, 255, 255, 0.85);
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--dark-bg);
+        color: var(--dark-text);
+        scroll-behavior: smooth;
+        transition: background-color 0.4s ease, color 0.4s ease;
+      }
+
+      /* Base styles for elements that will be animated */
+      .animate__animated {
+        visibility: hidden; /* Hide elements initially for scroll reveal */
+      }
+
+      /* Navbar */
+      .navbar {
+        backdrop-filter: blur(20px);
+        background-color: var(--dark-navbar-bg);
+        transition: background-color 0.4s ease;
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        font-size: 1.5rem;
+        letter-spacing: 1px;
+        color: var(--dark-text); /* Ensure brand color changes with theme */
+        transition: color 0.4s ease;
+      }
+
+      .nav-link {
+        color: var(--dark-nav-link) !important;
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0%;
+        height: 2px;
+        background-color: var(--primary);
+        transition: width 0.3s;
+      }
+
+      .nav-link:hover {
+        color: var(--dark-text) !important;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      /* Navbar Toggler Icon Fix */
+      .navbar-toggler-icon {
+        background-image: var(
+          --bs-navbar-toggler-icon-bg
+        ); /* Use Bootstrap's variable */
+      }
+
+      [data-bs-theme="dark"] .navbar-toggler-icon {
+        /* Default Bootstrap dark icon uses filter already, but ensuring it's clear */
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+      }
+
+      [data-bs-theme="light"] .navbar-toggler-icon {
+        /* Force a dark icon for light mode */
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+      }
+
+      /* Hero Section */
+      .hero {
+        height: 100vh;
+        background: linear-gradient(160deg, #0a0a0a, #161616);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero img {
+        max-width: 300px;
+        margin-top: 1rem;
+        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        animation: float 3s ease-in-out infinite;
+      }
+
+      .hero img:hover {
+        transform: scale(1.08) translateY(-5px);
+      }
+
+      .hero h1 {
+        font-size: 3.2rem;
+        font-weight: 700;
+        animation: fadeInScale 1s ease-out forwards;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+        color: var(--dark-muted-text);
+        animation: fadeInUp 1.2s ease-out forwards;
+      }
+
+      /* Primary Glow Button */
+      .btn-primary-glow {
+        background-color: transparent;
+        color: var(--primary);
+        border: 2px solid var(--primary);
+        transition: all 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        transform: translateZ(0); /* For smooth GPU animation */
+      }
+
+      .btn-primary-glow::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%; /* Start off-screen to the left */
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(13, 110, 253, 0.2),
+          transparent
+        ); /* Subtle shimmer */
+        transition: left 0.5s ease;
+      }
+
+      .btn-primary-glow:hover {
+        background-color: var(--primary);
+        color: #fff;
+        box-shadow: 0 0 20px var(--primary); /* More intense glow */
+        transform: scale(1.02); /* Slight scale on hover */
+      }
+
+      .btn-primary-glow:hover::before {
+        left: 100%; /* Move across the button */
+      }
+
+      /* Secondary Outline Glow Button (for CTA) */
+      .btn-light-outline-glow {
+        background-color: transparent;
+        color: #fff;
+        border: 2px solid #fff;
+        transition: all 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        transform: translateZ(0);
+      }
+
+      .btn-light-outline-glow::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      .btn-light-outline-glow:hover {
+        background-color: #fff;
+        color: var(--primary);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        transform: scale(1.02);
+      }
+
+      .btn-light-outline-glow:hover::before {
+        left: 100%;
+      }
+
+      /* Animations */
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeInScale {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
+
+      /* Cards & Elements with Hover */
+      .feature-card,
+      .testimonial-card,
+      .faq-item {
+        background-color: var(--dark-card);
+        border: 1px solid var(--dark-border);
+        border-radius: 15px;
+        padding: 2rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease,
+          background-color 0.4s ease, border-color 0.4s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 12px 35px rgba(0, 123, 255, 0.25); /* Stronger, wider shadow */
+      }
+
+      .feature-icon {
+        font-size: 2.5rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+        transition: transform 0.3s ease, color 0.3s ease;
+      }
+
+      .feature-card:hover .feature-icon {
+        transform: scale(1.15) rotate(5deg); /* More dynamic icon animation */
+        color: #fff; /* Icon color change on hover */
+      }
+
+      .mode-toggle {
+        cursor: pointer;
+        color: var(--dark-text);
+        margin-left: 1.5rem;
+        font-size: 1.6rem;
+        transition: color 0.4s ease, transform 0.3s ease;
+      }
+
+      .mode-toggle:hover {
+        transform: rotate(20deg) scale(1.1); /* More pronounced rotation and scale */
+        color: var(--primary);
+      }
+
+      footer {
+        background-color: #000;
+        padding: 2rem 0;
+        border-top: 1px solid #333;
+        transition: background-color 0.4s ease, border-color 0.4s ease;
+      }
+
+      /* About Section */
+      .about-section img {
+        max-width: 100%;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        transition: transform 0.5s ease, box-shadow 0.5s ease;
+      }
+
+      .about-section img:hover {
+        transform: scale(1.03) rotate(-1deg); /* Slight rotation on hover */
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+      }
+
+      /* Specifications List */
+      .specs-list li {
+        list-style: none;
+        padding: 0.8rem 0; /* More padding */
+        border-bottom: 1px dashed var(--dark-border);
+        display: flex; /* Align strong and text */
+        justify-content: space-between; /* Push value to right */
+        align-items: center;
+      }
+
+      .specs-list li:last-child {
+        border-bottom: none;
+      }
+
+      .specs-list strong {
+        color: var(--primary);
+        min-width: 180px; /* Ensure strong text aligns better */
+      }
+
+      /* Testimonial Cards */
+      .testimonial-card {
+        padding: 2rem;
+        text-align: center;
+        position: relative; /* For the quote icon positioning */
+        overflow: hidden;
+      }
+
+      .testimonial-card .bi-quote {
+        font-size: 4rem; /* Larger quote icon */
+        color: var(--primary);
+        opacity: 0.1; /* Very subtle background */
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        transform: rotate(-10deg);
+        z-index: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .testimonial-card:hover .bi-quote {
+        opacity: 0.2; /* More visible on hover */
+      }
+
+      .testimonial-card img {
+        width: 90px; /* Slightly larger avatar */
+        height: 90px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 1rem;
+        border: 4px solid var(--primary); /* Thicker border */
+        box-shadow: 0 0 18px rgba(0, 123, 255, 0.4); /* Stronger shadow */
+        position: relative; /* To be above quote icon */
+        z-index: 1;
+      }
+
+      /* FAQ Accordion */
+      .faq-item .accordion-button {
+        background-color: var(--dark-card) !important;
+        color: var(--dark-text) !important;
+        border: 1px solid var(--dark-border);
+        border-radius: 15px !important;
+        margin-bottom: 10px;
+        transition: background-color 0.4s ease, color 0.4s ease,
+          border-color 0.4s ease, box-shadow 0.3s ease;
+        font-weight: 600; /* Bolder text */
+        padding: 1.2rem 1.5rem; /* More padding */
+      }
+
+      .faq-item .accordion-button:not(.collapsed) {
+        background-color: var(--primary) !important;
+        color: #fff !important;
+        box-shadow: 0 0 15px rgba(0, 123, 255, 0.6); /* More prominent shadow */
+      }
+
+      .faq-item .accordion-body {
+        background-color: var(--dark-card);
+        color: var(--dark-muted-text);
+        border: 1px solid var(--dark-border);
+        border-top: none;
+        border-radius: 0 0 15px 15px;
+        padding-top: 1rem;
+        padding-bottom: 1.5rem; /* More padding */
+        font-size: 0.95rem; /* Slightly larger text */
+        line-height: 1.6;
+      }
+
+      /* Light Theme Support */
+      [data-bs-theme="light"] body {
+        background-color: var(--light-bg);
+        color: var(--light-text);
+      }
+
+      [data-bs-theme="light"] .navbar-brand {
+        color: var(--light-text);
+      }
+
+      [data-bs-theme="light"] .feature-card,
+      [data-bs-theme="light"] .testimonial-card,
+      [data-bs-theme="light"] .faq-item {
+        background-color: var(--light-card);
+        border-color: var(--light-border);
+      }
+
+      [data-bs-theme="light"] .nav-link {
+        color: var(--light-nav-link) !important;
+      }
+
+      [data-bs-theme="light"] .nav-link:hover {
+        color: var(--light-text) !important;
+      }
+
+      [data-bs-theme="light"] .navbar {
+        background-color: var(--light-navbar-bg);
+      }
+
+      [data-bs-theme="light"] .hero {
+        background: linear-gradient(
+          160deg,
+          #e0e0e0,
+          #f8f8f8
+        ); /* Light gradient */
+        color: var(--light-text);
+      }
+
+      [data-bs-theme="light"] .hero p {
+        color: var(--light-muted-text);
+      }
+
+      [data-bs-theme="light"] .mode-toggle {
+        color: var(--light-text);
+      }
+
+      [data-bs-theme="light"] footer {
+        background-color: #f0f0f0; /* Lighter footer */
+        border-top: 1px solid #ccc;
+        color: var(--light-muted-text);
+      }
+
+      [data-bs-theme="light"] .btn-outline-light {
+        color: var(--primary);
+        border-color: var(--primary);
+      }
+
+      [data-bs-theme="light"] .btn-outline-light:hover {
+        background-color: var(--primary);
+        color: #fff;
+      }
+
+      [data-bs-theme="light"] .specs-list li {
+        border-bottom: 1px dashed var(--light-border);
+      }
+
+      [data-bs-theme="light"] .faq-item .accordion-button {
+        background-color: var(--light-card) !important;
+        color: var(--light-text) !important;
+        border-color: var(--light-border);
+      }
+
+      [data-bs-theme="light"] .faq-item .accordion-body {
+        background-color: var(--light-card);
+        color: var(--light-muted-text);
+        border-color: var(--light-border);
+      }
+
+      /* Specific light theme adjustments for buttons */
+      [data-bs-theme="light"] .btn-primary-glow {
+        color: var(--primary);
+        border-color: var(--primary);
+      }
+
+      [data-bs-theme="light"] .btn-primary-glow:hover {
+        background-color: var(--primary);
+        color: #fff;
+        box-shadow: 0 0 20px rgba(0, 123, 255, 0.4);
+      }
+
+      [data-bs-theme="light"] .btn-primary-glow::before {
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(13, 110, 253, 0.1),
+          transparent
+        );
+      }
+
+      [data-bs-theme="light"] .btn-light-outline-glow {
+        color: var(--primary);
+        border-color: var(--primary);
+      }
+
+      [data-bs-theme="light"] .btn-light-outline-glow:hover {
+        background-color: var(--primary);
+        color: #fff;
+        box-shadow: 0 0 20px rgba(0, 123, 255, 0.4);
+      }
+
+      [data-bs-theme="light"] .btn-light-outline-glow::before {
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(13, 110, 253, 0.1),
+          transparent
+        );
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg fixed-top shadow-sm">
+      <div class="container">
+        <a class="navbar-brand" href="#">Vanta One</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#features">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#specs">Specifications</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#testimonials">Testimonials</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#faq">FAQ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+          </ul>
+          <i
+            class="bi bi-moon-stars-fill mode-toggle"
+            id="themeToggle"
+            title="Toggle Theme"
+          ></i>
+        </div>
+      </div>
+    </nav>
+
+    <section id="hero" class="hero">
+      <div>
+        <h1>Vanta One</h1>
+        <p>Luxury. Precision. Performance. All in your wrist.</p>
+        <img src="https://i.imgur.com/h7t3TFK.png" alt="Vanta One Smartwatch" />
+        <div>
+          <a href="#features" class="btn btn-primary-glow mt-4"
+            >Explore Features</a
+          >
+        </div>
+      </div>
+    </section>
+
+    ---
+
+    <section id="about" class="py-5">
+      <div
+        class="container about-section animate__animated"
+        data-animate="fadeInUp"
+      >
+        <div class="row align-items-center">
+          <div class="col-md-6 mb-4 mb-md-0">
+            <img
+              src="https://i.imgur.com/X9u7uRk.jpeg"
+              alt="Vanta One Craftsmanship - Hand polishing watch"
+              class="img-fluid"
+            />
+          </div>
+          <div class="col-md-6">
+            <h2 class="fw-bold mb-3">Crafted for Excellence</h2>
+            <p class="text-muted">
+              At Vanta One, we believe that technology should seamlessly
+              integrate with your lifestyle, enhancing it without compromising
+              on elegance. Each smartwatch is a testament to meticulous
+              engineering and uncompromising design, using only the finest
+              materials to ensure durability and a luxurious feel.
+            </p>
+            <p class="text-muted">
+              From the sapphire glass display to the aerospace-grade titanium
+              casing, every detail is considered to deliver a device that's not
+              just smart, but a statement. Experience the perfect synergy of
+              innovation and artistry.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    ---
+
+    <section id="features" class="py-5">
+      <div class="container">
+        <div
+          class="text-center mb-5 animate__animated"
+          data-animate="fadeInDown"
+        >
+          <h2 class="fw-bold">Why Vanta One?</h2>
+          <p class="text-muted">The future of wearable tech, today.</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div
+              class="feature-card text-center h-100 animate__animated"
+              data-animate="fadeInLeft"
+              data-delay="0s"
+            >
+              <div class="feature-icon">
+                <i class="bi bi-heart-pulse-fill"></i>
+              </div>
+              <h5 class="fw-bold">Health Insights</h5>
+              <p>
+                24/7 heart rate, sleep, and oxygen tracking built-in for your
+                well-being.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div
+              class="feature-card text-center h-100 animate__animated"
+              data-animate="fadeInUp"
+              data-delay="0.2s"
+            >
+              <div class="feature-icon">
+                <i class="bi bi-lightning-charge-fill"></i>
+              </div>
+              <h5 class="fw-bold">Blazing Speed</h5>
+              <p>
+                Experience fluid interaction and a snappy UI with our latest
+                processor.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div
+              class="feature-card text-center h-100 animate__animated"
+              data-animate="fadeInRight"
+              data-delay="0.4s"
+            >
+              <div class="feature-icon">
+                <i class="bi bi-palette-fill"></i>
+              </div>
+              <h5 class="fw-bold">Minimalist Luxury</h5>
+              <p>
+                Crafted with premium materials and a timeless, elegant design.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    ---
+
+    <section id="specs" class="py-5">
+      <div class="container">
+        <div
+          class="text-center mb-5 animate__animated"
+          data-animate="fadeInDown"
+        >
+          <h2 class="fw-bold">Technical Specifications</h2>
+          <p class="text-muted">Power and elegance, redefined.</p>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-8 animate__animated" data-animate="fadeInUp">
+            <ul class="list-unstyled specs-list">
+              <li><strong>Display:</strong> 1.5" AMOLED Retina Display</li>
+              <li><strong>Processor:</strong> Custom Vanta X1 Chip</li>
+              <li><strong>Storage:</strong> 32GB Internal</li>
+              <li>
+                <strong>Battery Life:</strong> Up to 7 days (typical usage)
+              </li>
+              <li>
+                <strong>Water Resistance:</strong> 5 ATM (Up to 50 meters)
+              </li>
+              <li>
+                <strong>Connectivity:</strong> Bluetooth 5.2, Wi-Fi, GPS, NFC
+              </li>
+              <li>
+                <strong>Sensors:</strong> Heart Rate, SpO2, Accelerometer,
+                Gyroscope, Altimeter
+              </li>
+              <li>
+                <strong>Materials:</strong> Titanium Casing, Sapphire Glass,
+                Fluoroelastomer Strap
+              </li>
+              <li><strong>OS:</strong> VantaOS (Custom Android-based)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    ---
+
+    <section id="testimonials" class="py-5 bg-dark">
+      <div class="container">
+        <div
+          class="text-center mb-5 animate__animated"
+          data-animate="fadeInDown"
+        >
+          <h2 class="fw-bold text-white">What Our Customers Say</h2>
+          <p class="text-muted">
+            Hear from those who've experienced Vanta One.
+          </p>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4">
+            <div
+              class="testimonial-card animate__animated"
+              data-animate="fadeInUp"
+              data-delay="0s"
+            >
+              <img
+                src="https://i.pravatar.cc/150?img=1"
+                alt="Customer Avatar Jane Doe"
+              />
+              <i class="bi bi-quote"></i>
+              <p class="mb-3">
+                "The Vanta One is a game-changer! Its sleek design and powerful
+                features have exceeded all my expectations. Absolutely love it."
+              </p>
+              <h6 class="fw-bold mb-0">- Jane Doe</h6>
+              <small class="text-muted">Tech Enthusiast</small>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div
+              class="testimonial-card animate__animated"
+              data-animate="fadeInUp"
+              data-delay="0.2s"
+            >
+              <img
+                src="https://i.pravatar.cc/150?img=2"
+                alt="Customer Avatar John Smith"
+              />
+              <i class="bi bi-quote"></i>
+              <p class="mb-3">
+                "Finally, a smartwatch that combines luxury with functionality.
+                The health tracking is incredibly accurate, and the battery
+                lasts forever!"
+              </p>
+              <h6 class="fw-bold mb-0">- John Smith</h6>
+              <small class="text-muted">Fitness Coach</small>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div
+              class="testimonial-card animate__animated"
+              data-animate="fadeInUp"
+              data-delay="0.4s"
+            >
+              <img
+                src="https://i.pravatar.cc/150?img=3"
+                alt="Customer Avatar Emily White"
+              />
+              <i class="bi bi-quote"></i>
+              <p class="mb-3">
+                "An absolute masterpiece. The Vanta One feels premium on the
+                wrist and seamlessly handles all my notifications. Highly
+                recommended for anyone seeking quality."
+              </p>
+              <h6 class="fw-bold mb-0">- Emily White</h6>
+              <small class="text-muted">Business Executive</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    ---
+
+    <section id="faq" class="py-5">
+      <div class="container">
+        <div
+          class="text-center mb-5 animate__animated"
+          data-animate="fadeInDown"
+        >
+          <h2 class="fw-bold">Frequently Asked Questions</h2>
+          <p class="text-muted">Find answers to common queries.</p>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-8 animate__animated" data-animate="fadeInUp">
+            <div class="accordion accordion-flush" id="faqAccordion">
+              <div class="accordion-item faq-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseOne"
+                    aria-expanded="false"
+                    aria-controls="flush-collapseOne"
+                  >
+                    What devices is Vanta One compatible with?
+                  </button>
+                </h2>
+                <div
+                  id="flush-collapseOne"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="flush-headingOne"
+                  data-bs-parent="#faqAccordion"
+                >
+                  <div class="accordion-body">
+                    The Vanta One is compatible with both iOS (iPhone 8 or later
+                    running iOS 15+) and Android (phones running Android 10+).
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item faq-item">
+                <h2 class="accordion-header" id="flush-headingTwo">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseTwo"
+                    aria-expanded="false"
+                    aria-controls="flush-collapseTwo"
+                  >
+                    Is the Vanta One waterproof?
+                  </button>
+                </h2>
+                <div
+                  id="flush-collapseTwo"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="flush-headingTwo"
+                  data-bs-parent="#faqAccordion"
+                >
+                  <div class="accordion-body">
+                    Yes, the Vanta One has a 5 ATM water resistance rating,
+                    meaning it's suitable for showering, swimming in shallow
+                    water, and activities like snorkeling. However, it's not
+                    recommended for diving or high-speed water sports.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item faq-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseThree"
+                    aria-expanded="false"
+                    aria-controls="flush-collapseThree"
+                  >
+                    What is the battery life like?
+                  </button>
+                </h2>
+                <div
+                  id="flush-collapseThree"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="flush-headingThree"
+                  data-bs-parent="#faqAccordion"
+                >
+                  <div class="accordion-body">
+                    Under typical usage, the Vanta One offers up to 7 days of
+                    battery life. With heavy usage and constant GPS tracking,
+                    this may be reduced. It supports fast charging, giving you a
+                    full charge in about 60 minutes.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    ---
+
+    <section
+      id="cta"
+      class="py-5 text-center bg-primary animate__animated"
+      data-animate="zoomIn"
+    >
+      <div class="container">
+        <h2 class="fw-bold text-white mb-3">Ready to Elevate Your Wrist?</h2>
+        <p class="lead text-white-50 mb-4">
+          Experience the pinnacle of luxury, precision, and performance. Secure
+          yours today!
+        </p>
+        <a href="#contact" class="btn btn-lg btn-light-outline-glow"
+          >Pre-Order Now</a
+        >
+      </div>
+    </section>
+
+    ---
+
+    <section id="contact" class="py-5 text-center">
+      <div class="container animate__animated" data-animate="fadeInUp">
+        <h2 class="fw-bold">Let’s Connect</h2>
+        <p class="text-muted">
+          Available for freelance work and collaboration.
+        </p>
+        <a
+          href="mailto:zeyad.workmail@gmail.com"
+          class="btn btn-outline-light mt-2"
+          >Contact Me</a
+        >
+      </div>
+    </section>
+
+    ---
+
+    <footer class="text-center text-muted">
+      <p class="mb-0">© 2025 Zeyad Abdulfattah · Front-End Developer</p>
+    </footer>
+
+    <script>
+      const themeToggle = document.getElementById("themeToggle");
+      const html = document.documentElement;
+
+      // Set initial theme based on local storage or system preference
+      const storedTheme = localStorage.getItem("bs-theme");
+      if (storedTheme) {
+        html.setAttribute("data-bs-theme", storedTheme);
+        if (storedTheme === "light") {
+          themeToggle.classList.remove("bi-moon-stars-fill");
+          themeToggle.classList.add("bi-sun-fill");
+        }
+      } else if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+        html.setAttribute("data-bs-theme", "light");
+        themeToggle.classList.remove("bi-moon-stars-fill");
+        themeToggle.classList.add("bi-sun-fill");
+      }
+
+      themeToggle.addEventListener("click", () => {
+        let currentTheme = html.getAttribute("data-bs-theme");
+        let newTheme = currentTheme === "dark" ? "light" : "dark";
+        html.setAttribute("data-bs-theme", newTheme);
+        localStorage.setItem("bs-theme", newTheme); // Store preference
+
+        // Toggle icon
+        themeToggle.classList.toggle("bi-moon-stars-fill");
+        themeToggle.classList.toggle("bi-sun-fill");
+      });
+
+      // --- Scroll Reveal Animation Logic ---
+      const sectionsToAnimate = document.querySelectorAll(
+        ".animate__animated:not(#hero .animate__animated)"
+      ); // Exclude hero children from initial hide
+
+      const observerOptions = {
+        root: null, // viewport as the root
+        rootMargin: "0px",
+        threshold: 0.2, // Trigger when 20% of the element is in view
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const element = entry.target;
+            const animationClass = element.getAttribute("data-animate");
+            const animationDelay = element.getAttribute("data-delay") || "0s";
+
+            element.style.setProperty("--animate-delay", animationDelay);
+            element.classList.add(animationClass);
+            element.style.visibility = "visible"; // Make visible once animation starts
+            observer.unobserve(element); // Stop observing once animated
+          }
+        });
+      }, observerOptions);
+
+      sectionsToAnimate.forEach((section) => {
+        section.style.visibility = "hidden"; // Ensure elements are hidden before observer
+        observer.observe(section);
+      });
+
+      // Special handling for elements within the hero that have initial animations
+      const heroElements = document.querySelectorAll(
+        "#hero h1, #hero p, #hero img, #hero .btn"
+      );
+      heroElements.forEach((el) => {
+        el.style.visibility = "visible"; // Ensure hero elements are visible from the start
+      });
+    </script>
+  </body>
+</html>
